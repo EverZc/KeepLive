@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.panda.keeplive">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
+        android:name=".MyApplicaiton"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,7 +20,6 @@
         </activity>
 
         <activity android:name=".activity.PixelActivity"
-            android:process=":receiverservice"
             android:theme="@style/PixelActivityStyle"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -41,6 +42,16 @@
 
         <service android:name=".service.ReceiverService"
             android:process=":receiverservice"/>
+
+        <!-- JobService -->
+        <service
+            android:name=".service.JobSchedulerService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service android:name=".service.DownloadService"
+            android:process=":DownloadService"/>
     </application>
 
 </manifest>

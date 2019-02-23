@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.panda.keeplive.R;
 import com.panda.keeplive.SettingUtils;
 import com.panda.keeplive.service.AutoHideNotificationService;
+import com.panda.keeplive.service.DownloadService;
 import com.panda.keeplive.service.ForegroundService;
 import com.panda.keeplive.service.HideNotificationService;
 import com.panda.keeplive.service.ReceiverService;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         btn1 = findViewById(R.id.btn_one);
         btn2 = findViewById(R.id.btn_two);
         btn3 = findViewById(R.id.btn_three);
+        Intent intent = new Intent(this, DownloadService.class);
+        startService(intent);
         Log.e("MainActivity","onCreate");
     }
 
