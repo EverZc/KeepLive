@@ -20,9 +20,11 @@
         </activity>
 
         <activity android:name=".activity.PixelActivity"
+
             android:theme="@style/PixelActivityStyle"
             android:excludeFromRecents="true"
             android:exported="false"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"
             android:finishOnTaskLaunch="false"
             android:launchMode="singleInstance"></activity>
 
@@ -50,8 +52,19 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
+        <service android:name=".service.UseJobService"
+            android:process=":useJobService"/>
+
+        <service android:name=".doubleservice.GuardService"
+            android:process=":GuardService"
+            />
+
+        <service android:name=".doubleservice.StepService"
+            android:process=":StepService"/>
+
         <service android:name=".service.DownloadService"
-            android:process=":DownloadService"/>
+         />
+
     </application>
 
 </manifest>

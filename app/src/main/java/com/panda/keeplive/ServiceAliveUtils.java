@@ -13,7 +13,7 @@ public class ServiceAliveUtils {
             return true;
         }
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if ("com.panda.keeplive.service.DownloadService".equals(service.service.getClassName())) {
+            if ("com.panda.keeplive.service.ForegroundService".equals(service.service.getClassName())) {
                 isServiceRunning = true;
             }
         }

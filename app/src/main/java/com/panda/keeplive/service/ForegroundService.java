@@ -19,14 +19,7 @@ public class ForegroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startForeground(SERVICE_ID, new Notification());
-        Log.e("ForegroundService","onStartCommand = " + android.os.Process.myPid());
         return START_STICKY;
-    }
-
-    @Override
-    public void onStart(Intent intent, int startId) {
-        super.onStart(intent, startId);
-        Log.e("ForegroundService","onStart " );
     }
 
     @Nullable

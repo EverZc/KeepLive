@@ -1,5 +1,6 @@
 package com.panda.keeplive;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -12,6 +13,8 @@ import android.util.Log;
 
 import com.panda.keeplive.activity.PixelActivity;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by Zc on 2019/2/22.
  */
@@ -22,9 +25,7 @@ public class KeepServiceManager {
      * Service ID
      */
     private final static int KEEP_SERVICE_ID = 998;
-
     private static KeepServiceManager instance = new KeepServiceManager();
-
     public static KeepServiceManager getInstance(){
         return instance;
     }
@@ -65,18 +66,12 @@ public class KeepServiceManager {
         public IBinder onBind(Intent intent) {
             return null;
         }
-
-        @Override
-        public void onDestroy() {
-            super.onDestroy();
-            Log.e("SubsidiaryService","SubsidiaryService onDestroy");
-        }
     }
 
     /**
-     * 1像素的透明Activity
+     * 传入1像素的Activity,并且防止内存泄漏
      */
-    private PixelActivity activity;
+    private WeakReference<Activity> mActivity;
 
     /**
      * 监听锁屏/解锁的广播（必须动态注册）
@@ -87,8 +82,8 @@ public class KeepServiceManager {
      * 传入1像素的透明Activity实例
      * @param activity
      */
-    public void setKeepLiveActivity(PixelActivity activity){
-        this.activity = activity;
+    public void setKeepLiveActivity(Activity activity){
+        this.mActivity = new WeakReference<>(activity);
         Log.e("setKeepLiveActivity","传入1像素的透明Activity实例");
     }
     /**
@@ -100,6 +95,7 @@ public class KeepServiceManager {
         lockReceiver = new LockReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(Intent.ACTION_USER_PRESENT);
         filter.addAction(Intent.ACTION_USER_PRESENT);
         context.registerReceiver(lockReceiver,filter);
 
@@ -135,14 +131,15 @@ public class KeepServiceManager {
         Intent intent = new Intent(context, PixelActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
-
     }
 
     private void destroyLiveActivity(){
         Log.e("KeepServiceManager","接到开启屏幕广播");
-        if(activity!=null){
-            activity.finish();
+        if(mActivity!=null){
+            Activity activity=mActivity.get();
+            if (activity!=null){
+                activity.finish();
+            }
         }
-
     }
 }

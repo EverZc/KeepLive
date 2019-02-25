@@ -22,14 +22,11 @@ public class ReceiverService extends Service {
         super.onDestroy();
         KeepServiceManager.getInstance().unRegisterReceiver(this);
     }
-
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         KeepServiceManager.getInstance().setServiceForeground(this);
         return START_STICKY;
     }
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {

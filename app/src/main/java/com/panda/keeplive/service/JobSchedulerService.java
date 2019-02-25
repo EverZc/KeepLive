@@ -1,25 +1,25 @@
 package com.panda.keeplive.service;
 
+import android.app.ActivityManager;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
-
-import com.panda.keeplive.ServiceAliveUtils;
-
+import com.panda.keeplive.MyApplicaiton;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class JobSchedulerService extends JobService {
     private static final String TAG = JobSchedulerService.class.getSimpleName();
+    private String keepPackageName="com.panda.keeplive.service."+"ForegroundService";
     @Override
     public boolean onStartJob(JobParameters params) {
-        boolean isServiceRunning = ServiceAliveUtils.isServiceAlice();
+        boolean isServiceRunning = isServiceAlice(keepPackageName);
         if (!isServiceRunning) {
-            Intent i = new Intent(this, DownloadService.class);
+            Intent i = new Intent(this, ForegroundService.class);
             startService(i);
-            Log.e(TAG, "ScheduleService启动了DownloadService");
+        }else {
         }
         jobFinished(params, false);
         return false;
@@ -28,5 +28,20 @@ public class JobSchedulerService extends JobService {
     @Override
     public boolean onStopJob(JobParameters params) {
         return false;
+    }
+
+    private   boolean isServiceAlice(String keepPackageName) {
+        boolean isServiceRunning = false;
+        ActivityManager manager =
+                (ActivityManager) MyApplicaiton.getInstance().getSystemService(Context.ACTIVITY_SERVICE);
+        if (manager == null) {
+            return true;
+        }
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (keepPackageName.equals(service.service.getClassName())) {
+                isServiceRunning = true;
+            }
+        }
+        return isServiceRunning;
     }
 }

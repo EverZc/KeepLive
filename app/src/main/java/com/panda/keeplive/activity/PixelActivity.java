@@ -28,9 +28,6 @@ public class PixelActivity extends Activity {
         params.width =100;
         window.setAttributes(params);
         KeepServiceManager.getInstance().setKeepLiveActivity(this);
-        Log.e("PixelActivity","onCreate");
-
-
     }
 
     @Override
@@ -45,18 +42,4 @@ public class PixelActivity extends Activity {
         Log.e("PixelActivity","onDestroy");
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                Log.e("PixelActivity","ACTION_DOWN");
-                finish();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                Log.e("PixelActivity","ACTION_MOVE");
-
-                break;
-        }
-        return super.onTouchEvent(event);
-    }
 }
