@@ -3,6 +3,7 @@
     package="com.panda.keeplive">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <application
         android:name=".MyApplicaiton"
         android:allowBackup="true"
@@ -43,9 +44,9 @@
             android:process=":receiverservice"/>
 
         <service android:name=".service.ReceiverService"
-            android:process=":receiverservice"/>
+            />
 
-        <!-- JobService -->
+
         <service
             android:name=".service.JobSchedulerService"
             android:enabled="true"
@@ -59,11 +60,17 @@
             android:process=":GuardService"
             />
 
-        <service android:name=".doubleservice.StepService"
+        <service android:name=".doubleservice.OtherGuardService"
             android:process=":StepService"/>
 
-        <service android:name=".service.DownloadService"
+        <service android:name=".service.KeepDoubleStartService"
          />
+
+        <service android:name=".service.MusicService"
+            android:enabled="true"
+            android:exported="true"
+          />
+
 
     </application>
 

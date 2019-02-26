@@ -15,9 +15,10 @@ import android.widget.Toast;
 import com.panda.keeplive.R;
 import com.panda.keeplive.SettingUtils;
 import com.panda.keeplive.doubleservice.GuardService;
-import com.panda.keeplive.doubleservice.StepService;
+import com.panda.keeplive.doubleservice.OtherGuardService;
 import com.panda.keeplive.service.AutoHideNotificationService;
-import com.panda.keeplive.service.DownloadService;
+import com.panda.keeplive.service.KeepDoubleStartService;
+import com.panda.keeplive.service.MusicService;
 import com.panda.keeplive.service.UseJobService;
 import com.panda.keeplive.service.ForegroundService;
 import com.panda.keeplive.service.HideNotificationService;
@@ -29,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
     private Button btn2;
     private Button btn3;
     private boolean isDoubleService=false;
-    private DownloadService.DownloadBinder mDownloadBinder;
+    private KeepDoubleStartService.DownloadBinder mDownloadBinder;
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            mDownloadBinder = (DownloadService.DownloadBinder) service;
-            mDownloadBinder.setOnTimeChangeListener(new DownloadService.OnTimeChangeListener() {
+            mDownloadBinder = (KeepDoubleStartService.DownloadBinder) service;
+            mDownloadBinder.setOnTimeChangeListener(new KeepDoubleStartService.OnTimeChangeListener() {
                 @Override
                 public void showTime(final String time) {
                     runOnUiThread(new Runnable() {
@@ -57,12 +58,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+
         Log.e("MainActivity","onCreate");
     }
 
     private void startDoubleService() {
         isDoubleService=true;
-        Intent intent = new Intent(this, DownloadService.class);
+        Intent intent = new Intent(this, KeepDoubleStartService.class);
         startService(intent);
         bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
         //双守护线程，优先级不一样
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
      * 开启所有守护Service
      */
     private void startAllServices() {
-        startService(new Intent(this, StepService.class));
+        startService(new Intent(this, OtherGuardService.class));
         startService(new Intent(this, GuardService.class));
     }
 
@@ -149,6 +151,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_seven:
                 Toast.makeText(this, "useJobService", Toast.LENGTH_SHORT).show();
                 useJobService();
+                break;
+            case R.id.btn_eight:
+                Toast.makeText(this, "MusicService", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, MusicService.class);
+                startService(intent);
                 break;
             case R.id.btn_white:
                 Toast.makeText(this, "进入白名单", Toast.LENGTH_SHORT).show();

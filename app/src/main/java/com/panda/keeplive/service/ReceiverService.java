@@ -12,6 +12,7 @@ import com.panda.keeplive.KeepServiceManager;
  */
 
 public class ReceiverService extends Service {
+
     @Override
     public void onCreate() {
         super.onCreate();

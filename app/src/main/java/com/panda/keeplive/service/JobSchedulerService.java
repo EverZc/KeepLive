@@ -12,12 +12,12 @@ import com.panda.keeplive.MyApplicaiton;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class JobSchedulerService extends JobService {
     private static final String TAG = JobSchedulerService.class.getSimpleName();
-    private String keepPackageName="com.panda.keeplive.service."+"ForegroundService";
+    private String keepPackageName="com.panda.keeplive.service."+"MusicService";
     @Override
     public boolean onStartJob(JobParameters params) {
         boolean isServiceRunning = isServiceAlice(keepPackageName);
         if (!isServiceRunning) {
-            Intent i = new Intent(this, ForegroundService.class);
+            Intent i = new Intent(this, MusicService.class);
             startService(i);
         }else {
         }

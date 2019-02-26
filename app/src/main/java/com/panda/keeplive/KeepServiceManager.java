@@ -2,6 +2,8 @@ package com.panda.keeplive;
 
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.panda.keeplive.activity.PixelActivity;
@@ -34,6 +37,7 @@ public class KeepServiceManager {
      * 设置服务为前台服务
      * @param service
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void setServiceForeground(Service service){
         if (Build.VERSION.SDK_INT < 18) {
             //Android4.3以下 ，此方法能有效隐藏Notification上的图标
@@ -44,9 +48,23 @@ public class KeepServiceManager {
             service.startService(innerIntent);
             service.startForeground(KEEP_SERVICE_ID, new Notification());
         }else{
+            String notificationId="id";
+            String notificationName="notificationName";
+            NotificationManager  notificationManager = (NotificationManager)
+                    service.getSystemService(Context.NOTIFICATION_SERVICE);
+            //创建NotificationChannel
+            NotificationChannel channel = new NotificationChannel(notificationId, notificationName, NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
+
+            Notification.Builder builder = new Notification.Builder(service)
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setContentTitle("测试服务")
+                    .setContentText("正在运行...");
+            builder.setChannelId("id");
+            Notification notification = builder.build();
             //Android7.1 google修复了此漏洞，暂无解决方法（现状：
             // Android7.1以上app启动后通知栏会出现一条"正在运行"的通知消息）
-            service.startForeground(KEEP_SERVICE_ID, new Notification());
+            service.startForeground(KEEP_SERVICE_ID, notification);
         }
     }
 
