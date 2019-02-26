@@ -26,12 +26,8 @@ import com.panda.keeplive.service.ReceiverService;
 import com.panda.keeplive.service.SimpleService;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btn1;
-    private Button btn2;
-    private Button btn3;
     private boolean isDoubleService=false;
     private KeepDoubleStartService.DownloadBinder mDownloadBinder;
-
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -57,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
-
         Log.e("MainActivity","onCreate");
     }
 
@@ -87,12 +81,6 @@ public class MainActivity extends AppCompatActivity {
     public void onContentChanged() {
         super.onContentChanged();
         Log.e("onContentChanged:","onContentChanged");
-    }
-
-    private void initView() {
-        btn1 = findViewById(R.id.btn_one);
-        btn2 = findViewById(R.id.btn_two);
-        btn3 = findViewById(R.id.btn_three);
     }
 
     @Override

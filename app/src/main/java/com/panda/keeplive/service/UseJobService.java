@@ -7,18 +7,11 @@ import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-
-import com.panda.keeplive.KeepServiceManager;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class UseJobService extends Service {
     public static final int NOTICE_ID = 100;
@@ -33,10 +26,8 @@ public class UseJobService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         return START_STICKY;
     }
-
 
     @Nullable
     @Override

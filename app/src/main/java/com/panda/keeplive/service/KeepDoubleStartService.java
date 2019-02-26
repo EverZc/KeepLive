@@ -72,7 +72,6 @@ public class KeepDoubleStartService extends Service {
                     mTimeMin = 0;
                     mTimeHour++;
                 }
-
                 String time = "运行时间：" + mTimeHour + " : " + mTimeMin + " : " + mTimeSec;
                 if (mOnTimeChangeListener != null) {
                     mOnTimeChangeListener.showTime(time);

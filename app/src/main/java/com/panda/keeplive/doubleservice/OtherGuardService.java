@@ -9,10 +9,8 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-
 import com.panda.keeplive.ServiceAliveUtils;
 import com.panda.keeplive.service.KeepDoubleStartService;
-import com.panda.keeplive.service.ReceiverService;
 
 public class OtherGuardService extends Service {
 

@@ -13,9 +13,7 @@ import android.util.Log;
 public class SimpleService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //do something
         int i = super.onStartCommand(intent, flags, startId);
-
         Log.e("MyKeepLive","SimpleService = " + android.os.Process.myPid());
         return i;
     }

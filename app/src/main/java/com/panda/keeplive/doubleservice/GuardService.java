@@ -14,7 +14,10 @@ import com.panda.keeplive.ServiceAliveUtils;
 import com.panda.keeplive.service.KeepDoubleStartService;
 
 
-
+/**
+ * 双进程守护Service
+ *
+ */
 public class GuardService extends Service {
     private final static String TAG = GuardService.class.getSimpleName();
     private ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -49,7 +52,6 @@ public class GuardService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         startForeground(1111, new Notification());
         // 绑定建立链接
         bindService(new Intent(this, OtherGuardService.class), mServiceConnection, Context.BIND_IMPORTANT);

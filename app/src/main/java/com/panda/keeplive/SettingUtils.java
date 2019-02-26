@@ -7,7 +7,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 /**
- * Created by Zc on 2012/2/22.
+ * Created by Zc on 2019/2/22.
  * 国内手机厂商白名单跳转工具类
  */
 
@@ -23,11 +23,8 @@ public class SettingUtils {
     }
 
     private static Intent getSettingIntent(){
-
         ComponentName componentName = null;
-
         String brand = android.os.Build.BRAND;
-
         switch (brand.toLowerCase()){
             case "samsung":
                 componentName = new ComponentName("com.samsung.android.sm",
