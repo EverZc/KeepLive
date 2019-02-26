@@ -11,6 +11,7 @@ import android.util.Log;
  */
 
 public class SimpleService extends Service {
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         int i = super.onStartCommand(intent, flags, startId);

@@ -24,8 +24,8 @@ public class PixelActivity extends Activity {
         WindowManager.LayoutParams params = window.getAttributes();
         params.x = 0;
         params.y = 0;
-        params.height = 100;
-        params.width =100;
+        params.height = 1;
+        params.width =1;
         window.setAttributes(params);
         KeepServiceManager.getInstance().setKeepLiveActivity(this);
     }
