@@ -64,11 +64,11 @@ public class KeepDoubleStartService extends Service {
             @Override
             public void run() {
                 mTimeSec++;
-                if (mTimeSec == 60||mTimeHour%60==0) {
+                if (mTimeSec == 60) {
                     mTimeSec = 0;
                     mTimeMin++;
                 }
-                if (mTimeMin == 60|mTimeMin%60==0) {
+                if (mTimeMin == 60) {
                     mTimeMin = 0;
                     mTimeHour++;
                 }

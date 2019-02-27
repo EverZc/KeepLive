@@ -23,7 +23,7 @@ public class MusicService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.e(TAG, "MusicService启动服务");
-        mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.canon);
+        mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.nosound);
         mMediaPlayer.setLooping(true);//无线循环
     }
 
